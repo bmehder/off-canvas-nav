@@ -1,6 +1,17 @@
 <script>
-  let isNavOpen;
+  import Home from "./Home.svelte";
+  import About from "./About.svelte";
 
+  // Router
+  let currentPage = "home";
+  $: console.log(currentPage);
+
+  const switchPage = page => {
+    currentPage = page;
+  };
+
+  // Hamburger
+  let isNavOpen;
   const toggleHamburgerClick = e => {
     isNavOpen = !isNavOpen;
   };
@@ -8,12 +19,10 @@
 
 <style>
   /* Closed State Styles */
-  section {
-    margin: 0;
-  }
   #hamburger {
     width: 100%;
     background: darkorange;
+    margin-bottom: 1em;
     padding: 10px 20px;
     display: inline-block;
     cursor: pointer;
@@ -54,14 +63,6 @@
     color: #333;
   }
 
-  main {
-    transition: margin-left 0.5s;
-    padding: 2em 4em;
-  }
-  p {
-    min-width: 300px;
-  }
-
   /* Opened State Styles */
   .isNavOpen .crown {
     transform: rotate(-45deg) translate(-9px, 6px);
@@ -73,6 +74,10 @@
     transform: rotate(45deg) translate(-8px, -8px);
   }
 
+  main {
+    padding: 0 8em;
+    transition: margin-left 0.5s;
+  }
   .isNavOpen main {
     margin-left: 20%;
   }
@@ -93,7 +98,7 @@
   }
 </style>
 
-<section class:isNavOpen>
+<div class:isNavOpen>
   <div id="hamburger" on:click={toggleHamburgerClick}>
     <div class="crown" />
     <div class="burger" />
@@ -101,20 +106,37 @@
   </div>
 
   <div id="sidenav">
-    <a href=".">Home</a>
-    <a href="#b">About</a>
-    <a href="#c">Services</a>
-    <a href="#d">Clients</a>
-    <a href="#e">Contact</a>
+    <a
+      href="#home"
+      on:click|preventDefault={() => {
+        switchPage('home');
+      }}>
+      Home
+    </a>
+    <a
+      href="#about"
+      on:click|preventDefault={() => {
+        switchPage('about');
+      }}>
+      About
+    </a>
+    <a href="#services">Services</a>
+    <a href="#clients">Clients</a>
+    <a href="#contact">Contact</a>
   </div>
 
-  <main>
-    <h2>Off-Canvas Nav</h2>
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum quod
-      obcaecati voluptatibus exercitationem non odio? Ducimus maxime repellat
-      incidunt ad maiores quis ab porro doloribus cum nobis quidem architecto
-      delectus, ipsam consequatur dolor.
-    </p>
-  </main>
-</section>
+  <section>
+    <main>
+      <!-- Home Section -->
+      {#if currentPage === 'home'}
+        <Home />
+      {/if}
+
+      <!-- About Section -->
+      {#if currentPage === 'about'}
+        <About />
+      {/if}
+
+    </main>
+  </section>
+</div>
