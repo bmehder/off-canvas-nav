@@ -6,9 +6,9 @@
     width: 100%;
     height: 10vh;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding: 1em 0;
+    padding: 1em 20px;
     background: #333;
     color: white;
   }

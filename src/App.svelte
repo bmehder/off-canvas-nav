@@ -7,11 +7,10 @@
   import Footer from "./Footer.svelte";
 
   // Router
-  let currentPage = "home";
-  $: console.log(currentPage);
-
-  const switchPage = page => {
-    currentPage = page;
+  const pages = ["home", "about", "services", "clients", "contact"];
+  let currentPage = pages[0];
+  const switchPage = i => {
+    currentPage = pages[i];
   };
 
   // Hamburger
@@ -64,9 +63,11 @@
     font-size: 25px;
     color: white;
     display: block;
+    text-transform: capitalize;
     transition: 0.3s;
   }
-  a:hover {
+  a:hover,
+  .active {
     color: #333;
   }
 
@@ -113,41 +114,16 @@
   </div>
 
   <div id="sidenav">
-    <a
-      href="#home"
-      on:click|preventDefault={() => {
-        switchPage('home');
-      }}>
-      Home
-    </a>
-    <a
-      href="#about"
-      on:click|preventDefault={() => {
-        switchPage('about');
-      }}>
-      About
-    </a>
-    <a
-      href="#services"
-      on:click|preventDefault={() => {
-        switchPage('services');
-      }}>
-      Services
-    </a>
-    <a
-      href="#clients"
-      on:click|preventDefault={() => {
-        switchPage('clients');
-      }}>
-      Clients
-    </a>
-    <a
-      href="#contact"
-      on:click|preventDefault={() => {
-        switchPage('contact');
-      }}>
-      Contact
-    </a>
+    {#each pages as page, i}
+      <a
+        href={page}
+        on:click|preventDefault={() => {
+          switchPage(i);
+        }}
+        class:active={currentPage === page}>
+        {page}
+      </a>
+    {/each}
   </div>
 
   <section>
@@ -176,8 +152,8 @@
       {#if currentPage === 'contact'}
         <Contact />
       {/if}
-
     </main>
   </section>
+  <!-- Footer -->
   <Footer />
 </div>
