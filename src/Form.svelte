@@ -1,3 +1,12 @@
+<script>
+  let name, email, phone, message;
+
+  const handleSubmit = () => {
+    const submission = { name, email, phone, message };
+    console.log(submission);
+  };
+</script>
+
 <style>
   form {
     display: flex;
@@ -31,10 +40,21 @@
   }
 </style>
 
-<form>
-  <input type="text" placeholder="Enter name..." required />
-  <input type="email" placeholder="Enter email address..." required />
-  <input type="phone" placeholder="Enter phone number..." required />
-  <textarea placeholder="Please type your message..." required />
+<form on:submit|preventDefault={handleSubmit}>
+  <input type="text" placeholder="Enter name..." bind:value={name} required />
+  <input
+    type="email"
+    placeholder="Enter email address..."
+    bind:value={email}
+    required />
+  <input
+    type="phone"
+    placeholder="Enter phone number..."
+    bind:value={phone}
+    required />
+  <textarea
+    placeholder="Please type your message..."
+    bind:value={message}
+    required />
   <button>Send Message</button>
 </form>
