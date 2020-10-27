@@ -1,6 +1,10 @@
 <script>
   import Home from "./Home.svelte";
   import About from "./About.svelte";
+  import Services from "./Services.svelte";
+  import Clients from "./Clients.svelte";
+  import Contact from "./Contact.svelte";
+  import Footer from "./Footer.svelte";
 
   // Router
   let currentPage = "home";
@@ -20,7 +24,10 @@
 <style>
   /* Closed State Styles */
   #hamburger {
+    position: sticky;
+    top: 0;
     width: 100%;
+    height: 10vh;
     background: darkorange;
     margin-bottom: 1em;
     padding: 10px 20px;
@@ -42,8 +49,8 @@
     height: 100%;
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed;
-    z-index: 1;
-    top: 45px;
+    /* z-index: 1; */
+    top: 10%;
     left: 0;
     background-color: darkorange;
     overflow-x: hidden;
@@ -75,7 +82,7 @@
   }
 
   main {
-    padding: 0 8em;
+    padding: 0 8em 10%;
     transition: margin-left 0.5s;
   }
   .isNavOpen main {
@@ -93,7 +100,7 @@
       font-size: 18px;
     }
     .isNavOpen {
-      margin-left: 100%;
+      margin-left: 20%;
     }
   }
 </style>
@@ -120,9 +127,27 @@
       }}>
       About
     </a>
-    <a href="#services">Services</a>
-    <a href="#clients">Clients</a>
-    <a href="#contact">Contact</a>
+    <a
+      href="#services"
+      on:click|preventDefault={() => {
+        switchPage('services');
+      }}>
+      Services
+    </a>
+    <a
+      href="#clients"
+      on:click|preventDefault={() => {
+        switchPage('clients');
+      }}>
+      Clients
+    </a>
+    <a
+      href="#contact"
+      on:click|preventDefault={() => {
+        switchPage('contact');
+      }}>
+      Contact
+    </a>
   </div>
 
   <section>
@@ -137,6 +162,22 @@
         <About />
       {/if}
 
+      <!-- Services Section -->
+      {#if currentPage === 'services'}
+        <Services />
+      {/if}
+
+      <!-- Clients Section -->
+      {#if currentPage === 'clients'}
+        <Clients />
+      {/if}
+
+      <!-- Contact Section -->
+      {#if currentPage === 'contact'}
+        <Contact />
+      {/if}
+
     </main>
   </section>
+  <Footer />
 </div>
